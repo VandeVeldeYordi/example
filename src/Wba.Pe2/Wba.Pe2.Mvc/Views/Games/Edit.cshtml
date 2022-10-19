@@ -1,8 +1,0 @@
-﻿@model GamesUpdateViewModel
-
-<h2>Update Game</h2>
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<form asp-controller="Games" asp-action="Edit" method="post" enctype="multipart/form-data">
-    <partial name="_GameFormPartial" model="@Model" />
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>

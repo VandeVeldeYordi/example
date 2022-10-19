@@ -1,8 +1,0 @@
-﻿@model PlatformDetailsViewModel
-
-<h2>Platform</h2><br />
-<label asp-for="Name"></label><b>@Model.Name</b><br />
-
-<a asp-action="Edit" asp-route-id = "@Model.Id" class = "btn btn-info">Edit</a>
-<a asp-action="DeleteConfirmation" asp-route-id="@Model.Id" class = "btn btn-danger"> Delete</a>
-
