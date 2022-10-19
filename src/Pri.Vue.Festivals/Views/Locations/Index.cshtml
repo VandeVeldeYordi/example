@@ -1,0 +1,12 @@
+﻿<div id="app">
+    <h1 class="bg-light text-center">{{pageTitle}}</h1>
+    <hr />
+    <ul class="list-group">
+        <li v-for="location in locations" class="list-group-item">
+            {{location.name}}  | <span class="text-muted">{{location.city}} | {{location.postal}}</span>
+        </li>
+    </ul>
+    <hr />
+    <a class="btn btn-primary" a asp-controller="Locations" asp-action="Add">Create new location</a>
+</div>
+<script src="~/js/Location/locations.js"></script>

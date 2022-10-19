@@ -1,0 +1,56 @@
+﻿<div id="app">
+    <h1 class="bg-light text-center">{{pageTitle}}</h1>
+    <hr />
+    <div v-if="error" class="alert alert-danger" role="alert">
+        {{userMessage}}
+    </div>
+    <div v-if="success" class="alert alert-success" role="alert">
+        {{userMessage}}
+    </div>
+    <form v-on:submit.prevent="addFestival" enctype="multipart/form-data" class="col col-lg-5 mx-auto">
+        <div class="form-group">
+            <label>Name</label>
+            <input v-model="festivalModel.name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input v-model="festivalModel.description" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <select v-model="festivalModel.locationId" class="form-control">
+                <option v-for="location in locations" v-bind:value="location.id">
+                    {{location.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Organizer</label>
+            <select v-model="festivalModel.organizerId" class="form-control">
+                <option v-for="organizer in organizers" v-bind:value="organizer.id">
+                    {{organizer.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span v-for="artist in artists">
+                <label>{{artist.name}}</label>
+                <input type="checkbox" v-bind:value="artist.id"
+                       v-model="festivalModel.checkedArtists" class="form-check-inline">
+            </span>
+        </div>
+        <div class="form-group">
+            <span v-for="ticket in tickets">
+                <label>{{ticket.name}}</label>
+                <input type="checkbox" v-bind:value="ticket.id"
+                       v-model="festivalModel.checkedTickets" class="form-check-inline">
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input ref="image" type="file" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script src="~/js/Festivals/addFestival.js"></script>

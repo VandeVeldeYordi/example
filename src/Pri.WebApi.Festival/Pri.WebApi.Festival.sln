@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.WebApi.Festival.Api", "Pri.WebApi.Festival.Api\Pri.WebApi.Festival.Api.csproj", "{678AF3BB-34C3-41D7-B2B2-9FDA2B43E4BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Festivals.Core", "Pri.Festival.Core\Pri.Festivals.Core.csproj", "{C30D5C4E-011C-4C44-A085-377CE9F029EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Festivals.Infrastructure", "Pri.Festival.Infrastructure\Pri.Festivals.Infrastructure.csproj", "{B368A562-C7D1-4729-9C80-ACDD187C9D10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{678AF3BB-34C3-41D7-B2B2-9FDA2B43E4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678AF3BB-34C3-41D7-B2B2-9FDA2B43E4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678AF3BB-34C3-41D7-B2B2-9FDA2B43E4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678AF3BB-34C3-41D7-B2B2-9FDA2B43E4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30D5C4E-011C-4C44-A085-377CE9F029EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30D5C4E-011C-4C44-A085-377CE9F029EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30D5C4E-011C-4C44-A085-377CE9F029EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30D5C4E-011C-4C44-A085-377CE9F029EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B368A562-C7D1-4729-9C80-ACDD187C9D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B368A562-C7D1-4729-9C80-ACDD187C9D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B368A562-C7D1-4729-9C80-ACDD187C9D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B368A562-C7D1-4729-9C80-ACDD187C9D10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {768BD3E8-1230-41FD-A289-E94A047B7F3D}
+	EndGlobalSection
+EndGlobal

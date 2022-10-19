@@ -1,0 +1,13 @@
+﻿<div id="app">
+    <h1 class="bg-light text-center">{{pageTitle}}</h1>
+    <hr />
+    <ul class="list-group">
+        <li v-for="genre in genres" class="list-group-item">
+            {{genre.name}} | <span class="text-muted">{{genre.description}}</span>
+
+        </li>
+    </ul>
+    <hr />
+    <a class="btn btn-primary" a asp-controller="Genres" asp-action="Add">Create new genre</a>
+</div>
+<script src="~/js/Genres/genres.js"></script>

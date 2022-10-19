@@ -1,0 +1,17 @@
+﻿<div id="app">
+    <h1 class="bg-light text-center">{{pageTitle}}</h1>
+    <hr />
+    <div v-if="error" class="alert alert-danger" role="alert">
+        @*get error message , loop trough nested user message array*@
+        <p v-for="error in userMessage">
+            <span v-for="error in error.Password">{{error}}</span>
+            <span v-for="error in error.Username"><br />{{error}} </span>
+        </p>
+    </div>
+    <div v-if="success" class="alert alert-success" role="alert">
+        {{userMessage}}
+    </div>
+    <a v-on:click="logout" class="btn btn-info">logout</a>
+</div>
+<script src="~/js/Account/logout.js"></script>
+

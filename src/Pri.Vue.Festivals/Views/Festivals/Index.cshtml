@@ -1,0 +1,103 @@
+﻿<div id="app">
+    <h1 class="bg-light text-center">{{pageTitle}}</h1>
+    <hr />
+    <div v-if="festivalDeleted" class="alert alert-primary alert-dismissible fade show" role="alert">
+        festival deleted
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+   
+
+    <div class="row" v-if="showFestival">
+        <div v-for="festival in festivals" v-on:click="getDetails(festival)" class="card col-md-3 m-2 p-4 border-primary" style="width: 18rem;">
+            <h5 class="card-title">{{festival.name}}</h5>
+            <hr />
+
+            <img v-bind:src="festival.image" class="card-img-top" alt="..." style="max-height: 200px">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">{{festival.description}}</h6>
+            </div>
+            <div class="card-footer"><h6 class="card-subtitle">{{festival.locationName}}</h6></div> 
+            <a v-if="token != null" v-on:click="deleteFestival" v-bind:id="festival.id" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    <div v-else>
+        <img v-bind:src="festival.image" class="card-img-top" style="max-width: 30%" alt="..."><hr />
+
+        <h5 class="card-title">{{festival.name}}</h5>
+        <label>Description :  </label> <b>{{festival.description}}</b><br />
+        <label>Location :  </label> <b>{{festival.locationName}}</b><br />
+        <label>organizer :  </label> <b>{{festival.organizerName}}</b><br />
+        <label>start date : </label>  <b>{{festival.startDate}}</b><br />
+        <label>end date : </label>  <b>{{festival.endDate}}</b><br />
+        <hr />
+        <label>Artists :</label>
+        <ul>
+            <li v-for="artist in festival.artists"> {{artist}} <br /> </li>
+        </ul>
+        <hr />
+        <label>Tickets : </label>
+        <ul>
+            <li v-for="tickets in festival.tickets">{{tickets}} <br /> </li>
+        </ul>
+
+        <a v-if="token != null" v-on:click="editFestival" class="btn btn-info">edit</a>
+        <a v-on:click="returnList" class="btn btn-primary">return</a>
+
+
+        <form v-on:submit.prevent="saveFestival" v-if="!isReadOnly" enctype="multipart/form-data" class="col col-lg-5 mx-auto">
+            <div class="form-group">
+                <label>Id</label>
+                <input v-model="festival.id" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>name</label>
+                <input v-model="festival.name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>description</label>
+                <input v-model="festival.description" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>location</label>
+                <select v-model="festival.locationId" class="form-control">
+                    <option v-for="location in locations" v-bind:value="location.id">
+                        {{location.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>organizer</label>
+                <select v-model="festival.organizerId" class="form-control">
+                    <option v-for="organizer in organizers" v-bind:value="organizer.id">
+                        {{organizer.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <span v-for="artist in artists">
+                    <label>{{artist.name}}</label>
+                    <input type="checkbox" v-bind:value="artist.id"
+                           v-model="checkBoxFestival.checkedArtists" class="form-check-inline">
+                </span>
+            </div>
+            <div class="form-group">
+                <span v-for="ticket in tickets">
+                    <label>{{ticket.name}}</label>
+                    <input type="checkbox" v-bind:value="ticket.id"
+                           v-model="checkBoxFestival.checkedTickets" class="form-check-inline">
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input ref="image" type="file" class="form-control">
+            </div>
+            <button class="btn btn-warning" v-if="!isReadOnly" v-on:click.prevent="saveFestival">Save</button>
+        </form>
+    </div>
+    <hr />
+    <a v-if="token !=null" class="btn btn-primary" a asp-controller="Festivals" asp-action="Add">Create new festival</a>
+</div>
+<script src="~/js/Festivals/festivals.js"></script>
+
