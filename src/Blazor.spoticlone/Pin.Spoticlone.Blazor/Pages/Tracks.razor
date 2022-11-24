@@ -1,0 +1,102 @@
+﻿@page "/tracks/{Value}/{ArtistIdValue}"
+@inject ICRUDService<Track> trackService;
+@inject IAlbumsApiService albumsService;
+
+@if (tracks.Length <= 0 )
+{
+ <LoadingSpinner></LoadingSpinner>   
+}   
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">
+        @error
+    </div>
+}
+    @if (currentTrack == null)
+    {
+        <TrackList Items="tracks"
+                     AlbumItems="currentAlbums"
+                     OnAdd="AddTrack"
+                     OnEdit="EditTrack"
+                   OnDelete="DeleteTrack">
+        </TrackList>
+    }
+    else
+    {
+        <TrackForm 
+                 Track="currentTrack"               
+                 OnSave="SaveTrack"
+                 OnCancel="RefreshTracks">
+        </TrackForm>
+    }   
+<NewsLetterWidget></NewsLetterWidget>
+
+@code {
+    private Track[] tracks = new Track[0];
+    private Track currentTrack;
+    private string error;
+    public Album[] currentAlbums = new Album[0];
+
+
+    [Parameter]
+    public string Value { get; set; }
+    
+    [Parameter]
+    public string ArtistIdValue { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {   await RefreshAlbums();
+        await RefreshTracks();      
+    }
+    private async Task RefreshAlbums()
+    {
+        Guid artistId = Guid.Parse(ArtistIdValue);
+        currentAlbums = (await albumsService.GetAll()).Where(x => x.ArtistId == artistId).ToArray();
+    }
+    private async Task RefreshTracks()
+    { 
+        Guid albumGuidId = Guid.Parse(Value);
+        tracks = (await trackService.Get(albumGuidId)).ToArray();
+        this.currentTrack = null;
+    }
+    public void AddTrack(){
+        this.currentTrack = new Track();   
+    }
+    public async Task EditTrack(Track item){
+        this.currentTrack = await trackService.GetTrackById(item.Id);
+    }
+    public async Task SaveTrack(Track item)
+    {
+        try
+        {
+            if (currentTrack.Id == Guid.Empty) 
+            { 
+                this.currentTrack.AlbumId = Guid.Parse(Value);
+                this.currentTrack.Id = Guid.NewGuid();
+                await trackService.Create(currentTrack); 
+                
+            }                                 
+            else           
+                await trackService.Update(currentTrack);         
+            await this.RefreshTracks();
+        }
+        catch (Exception ex)
+        {
+            this.error = ex.Message;
+        }
+    }
+    public async Task DeleteTrack(Track item)
+    {
+        try
+        {                  
+            await trackService.Delete(item.Id);
+            await this.RefreshTracks();
+        }
+        catch (Exception ex)
+        {
+            this.error = ex.Message;
+        }
+    }
+
+}

@@ -1,0 +1,19 @@
+﻿<h3>Longest tracks :</h3>
+
+<div class="row">
+    @foreach (var item in Items.OrderByDescending(x => x.DurationMs))
+    {
+        <div class="card col-md-3 m-2 p-4 border-primary " style="width: 18rem;">
+            <div class="h-25">
+                <h5 class="card-title ">@item.Title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">duration:  @item.DurationMs</li>
+            </ul>
+        </div>
+    }
+</div>
+@code {
+    [Parameter]
+    public Track[] Items { get; set; }
+}

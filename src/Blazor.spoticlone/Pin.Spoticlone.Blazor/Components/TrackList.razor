@@ -1,0 +1,72 @@
+﻿<button class="btn btn-primary" @onclick="OnAdd">Add Track</button>
+
+<table class="table mt-3">
+    
+    <thead>
+        <tr>
+            <th></th>   
+            <th>Track number</th>
+            <th>Title</th>
+            <th>Disc</th>
+            <th>Duration</th>
+            <th>Album name</th>     
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Items.OrderBy(x => x.TrackNumber))
+        {
+            <tr>
+                <td><button class="btn btn-warning" @onclick="e => OnEdit.InvokeAsync(item)">Edit</button></td>
+                <td>@item.TrackNumber</td>
+                <td>@item.Title</td>
+                <td>@item.DiscNumber</td>
+                <td>@item.DurationMs</td>
+                <td>@item.AlbumName</td>
+                <td><button class="btn btn-danger" @onclick="e => OnDelete.InvokeAsync(item)">Delete</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h3>More albums : </h3>
+
+<div class="row">
+    @foreach (var item in AlbumItems.Where(x => x.Id != Items.First().AlbumId))
+    {
+        <div class="card col-md-3 m-2 p-4 border-primary " style="width: 18rem;">
+            <a href="#" class=" stretched-link"></a>
+            <div class="h-25">
+                <h5 class="card-title ">@item.Name</h5>
+            </div>
+
+            <hr />
+            <img class="card-img-top" src="@item.Image" alt="Card image cap">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Tracks :  @item.NumberOfTracks</li>
+                <li class="list-group-item">Duration : @item.Duration</li>      
+            </ul>
+        </div>
+    }
+</div>
+
+
+
+
+@code {
+    [Parameter]
+    public Track[] Items { get; set; }
+    [Parameter]
+    public Album[] AlbumItems{ get; set; }
+
+    [Parameter]
+    public EventCallback OnAdd { get; set; }
+
+    [Parameter]
+    public EventCallback<Track> OnEdit { get; set; }
+    
+    [Parameter]
+    public EventCallback<Track> OnDelete { get; set; }
+}

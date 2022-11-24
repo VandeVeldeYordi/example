@@ -1,0 +1,22 @@
+﻿<h3>Top followers :</h3>
+<div class="row">
+    @foreach (var item in Items.OrderByDescending(x => x.Followers))
+    {
+        <div class="card col-md-3 m-2 p-4 border-primary " style="width: 18rem;">
+            <div class="h-25">
+                <h5 class="card-title ">@item.Name</h5>
+            </div>
+            <hr />
+            <img class="card-img-top" src="@item.Image" alt="Card image cap">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Followers :  @item.Followers</li>
+            </ul>
+        </div>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public Artist[] Items { get; set; }
+}

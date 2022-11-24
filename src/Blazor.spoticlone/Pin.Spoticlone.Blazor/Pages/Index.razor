@@ -1,0 +1,50 @@
+﻿@page "/"
+@inject IArtistsApiService artistService;
+
+<PageTitle>SpotiClone</PageTitle>
+@if (artists.Length <= 0)
+{
+    <LoadingSpinner></LoadingSpinner>
+}
+
+@if (currentArtist == null)
+{
+        <h1>Artists</h1>
+
+    <hr />
+    <ArtistList Items="artists"
+            OnDetails="GetDetails">
+    </ArtistList>
+}
+else
+{
+    <ArtistDetails OnDetails="GetDetails"
+               Artist="currentArtist">
+    </ArtistDetails>
+}
+<NewsLetterWidget></NewsLetterWidget>
+
+
+
+
+@code {
+    private Artist currentArtist;
+    private Artist[] artists = new Artist[0];
+    //private string error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshArtists();
+    }
+    public async Task RefreshArtists()
+    {
+        artists = (await artistService.GetAll()).ToArray();
+        this.currentArtist = null;
+    }
+    public async Task GetDetails(Artist item)
+    {
+        this.currentArtist = await artistService.Get(item.Id);
+
+    }
+
+}

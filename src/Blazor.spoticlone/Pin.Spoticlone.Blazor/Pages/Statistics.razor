@@ -1,0 +1,61 @@
+﻿@page "/statistics"
+@inject IStatisticsApiService statisticsService;
+<h3>Statistics</h3>
+
+<div class="form-group">
+    <label for="TopValue">choose top </label>
+    <select class="form-control"  @onchange="ChangeToSelectedAmount" >
+        @foreach (var item in TopValue)
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+</div>
+@if (topFollowersStatistics.Length <= 0)
+{
+    <LoadingSpinner></LoadingSpinner>
+}
+
+    <TopFollowersList Items="topFollowersStatistics"></TopFollowersList>
+<hr />
+<TopPopularity Items="topPopularityStats"></TopPopularity>
+<hr />
+<TopAlbumDurations Items="topAlbumsDuration"></TopAlbumDurations>
+<hr />
+<MostAlbums Items="mostAlbums"></MostAlbums>
+<hr />
+<LongestTracks Items="longestTracks"></LongestTracks>
+
+
+
+
+@code {
+    private int selectedInt = 3;
+    public int[] TopValue { get; set; } = new int[] { 3, 5, 10 };    
+    private Artist[] topFollowersStatistics = new Artist[0];
+    private Artist[] topPopularityStats = new Artist[0];
+    private Album[] topAlbumsDuration = new Album[0];
+    private Artist[] mostAlbums = new Artist[0];
+    private Track[] longestTracks = new Track[0];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshStats();
+        StateHasChanged();
+    }  
+    private async Task RefreshStats()
+    {             
+       topFollowersStatistics = (await statisticsService.GetTopFollowers(selectedInt)).ToArray();    
+       topPopularityStats = (await statisticsService.GetTopPopularity(selectedInt)).ToArray();
+       topAlbumsDuration = (await statisticsService.GetTopAlbumDurations(selectedInt)).ToArray();
+       mostAlbums = (await statisticsService.GetArtistWithMostAlbums(selectedInt)).ToArray();
+       longestTracks = (await statisticsService.GetTopTrackDurations(selectedInt)).ToArray();
+       StateHasChanged();
+           
+    }
+    private async void ChangeToSelectedAmount(ChangeEventArgs e)
+    {
+        selectedInt = int.Parse(e.Value.ToString());
+        await RefreshStats();
+    }
+}

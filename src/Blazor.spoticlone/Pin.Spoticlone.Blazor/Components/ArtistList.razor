@@ -1,0 +1,32 @@
+﻿<div class="row">
+     
+    @if (Items == null)
+    {
+        <LoadingSpinner></LoadingSpinner>
+    }                  
+    @foreach (var item in Items)
+    {
+        <div class="card col-md-3 m-2 p-4 border-primary" @onclick="e => OnDetails.InvokeAsync(item)" style="width: 18rem;">
+            
+            <h5 class="card-title">@item.Name</h5 >
+            <hr />
+            <img class="card-img-top" src="@item.Image" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Followers:  @item.Followers</p>
+                <p class="card-text">Rank: @item.Popularity</p>               
+            </div>
+            <a href="#" class=" stretched-link"></a>
+        </div>
+    }
+</div>
+
+
+@code { 
+    [Parameter] 
+    public Artist[] Items { get; set; } 
+     [Parameter]
+    public EventCallback<Artist> OnDetails { get; set; }
+
+} 
+ 
+ 

@@ -1,0 +1,42 @@
+﻿<EditForm Model="@Track" OnValidSubmit="@(e => OnSave.InvokeAsync(Track))">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+    <div class="form-group">
+        <label for="title">Title :</label>
+        <InputText class="form-control" id="title" @bind-Value="Track.Title" />
+        <ValidationMessage For="@(() => Track.Title)" />
+    </div>
+    
+    <div class ="form-group">
+        <label for="durationMs">Duration :</label>
+        <InputText class="form-control" id="durationMs" @bind-Value="Track.DurationMs" />
+        <ValidationMessage For="@(() => Track.DurationMs)" />
+    </div>
+    <div class="form-group">
+        <label for="trackNumber">TrackNumber :</label>
+        <InputNumber class="form-control" id="TrackNumber" @bind-Value="Track.TrackNumber" />
+        <ValidationMessage For="@(() => Track.TrackNumber)" />
+    </div>
+    <div class="form-group">
+        <label for="discNumber">DiscNumber :</label>
+        <InputNumber class="form-control" id="DiscNumber" @bind-Value="Track.DiscNumber" />
+        <ValidationMessage For="@(() => Track.DiscNumber)" />
+    </div>
+  @*  <div class="form-group">
+        <label for="explicit">Explicit :</label>
+        <InputCheckbox class="form-control" id="Explicit" @bind-Value="Track.Explicit" />
+    </div>*@
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public Track Track { get; set; }
+    [Parameter]
+    public EventCallback<Track> OnSave { get; set; }
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+}

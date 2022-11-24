@@ -1,0 +1,67 @@
+﻿@inject NavigationManager UriHelper
+<div> 
+    @if (Artist == null)
+    {
+        <LoadingSpinner></LoadingSpinner>
+    }
+    <h1 class="display-5">@Artist.Name</h1>
+    <hr />
+ 
+    <div class="mx-auto card " style="width: 18rem;">
+        <img class="card-img-top" src="@Artist.Image" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Followers : @Artist.Followers  <br /> Rank : @Artist.Popularity  <br /> Albums : @Artist.AlbumCount</p>               
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Artist.GenresName)
+            {
+             <li class="list-group-item">@item</li>
+            }             
+        </ul>
+    </div>
+   
+<hr />
+    <div class="row">          
+        @foreach (var item in Artist.Albums)
+        {
+            <div class="card col-md-3 m-2 p-4 border-primary " @onclick="@(e => OnClick(item.Id , item.ArtistId))" style="width: 18rem;">
+                <a href="#" class=" stretched-link"></a>
+                <div class="h-25">
+                    <h5 class="card-title ">@item.Name</h5>
+                    </div>
+               
+                <hr />
+                <img class="card-img-top" src="@item.Image" alt="Card image cap">
+                <ul class="list-group list-group-flush">
+                     <li class="list-group-item">Tracks :  @item.NumberOfTracks</li>
+                    <li class="list-group-item">Duration : @item.Duration</li>
+                   <li class="list-group-item">Discs :   @item.NumberOfDiscs</li>
+               </ul>
+            </div>           
+        }
+   </div>
+   <hr />
+
+    <h3 >More like  @Artist.Name : </h3>
+   <div class="row">
+     @foreach (var item in Artist.ArtistsWithSameGenre.Where(x => x.Name != Artist.Name))
+        {
+            <div class="card col-md-3 m-2 p-4 border-primary " @onclick="@(e => OnDetails.InvokeAsync(@item))" style="width: 18rem;">
+                <a href="#" class=" stretched-link"></a>
+                <h5 class="card-title ">@item.Name</h5>
+                <img class="card-img-top" src="@item.Image" alt="Card image cap">  
+                </div>                      
+        }
+   </div>
+</div>
+@code {
+    [Parameter]
+    public Artist Artist { get; set; }
+     
+    private void OnClick(Guid id , Guid artistId){           
+        UriHelper.NavigateTo($"Tracks/{id}/{artistId}");
+    }
+    [Parameter]
+    public EventCallback<Artist> OnDetails { get; set; }
+    
+}

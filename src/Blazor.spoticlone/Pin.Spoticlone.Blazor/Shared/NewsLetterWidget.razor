@@ -1,0 +1,43 @@
+﻿
+@inject IJSRuntime JsRunTime
+<EditForm Model="@model">
+
+    <div hidden="@HideLabel" class="card float-sm-end ">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="card-body">
+            <h5 class="card-title">Subscribe to our newsletter</h5>
+            <p class="card-text">Get the latest news and updates</p>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <InputText @bind-Value="model.EmailAdress" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <button type="button" @onclick="@Alert" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</EditForm>
+
+
+@code {
+    private Email model = new();
+    private bool HideLabel { get; set; } = false;
+
+    private async Task Alert()
+    {
+        await JsRunTime.InvokeVoidAsync("alert", "Thanks for subscribing!");
+        Toggle();
+        StateHasChanged();
+    }
+    private void Toggle()
+    {
+        HideLabel = !HideLabel;
+    }
+
+}
+
+
+
+

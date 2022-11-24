@@ -1,0 +1,22 @@
+﻿<h3>AlbumDetails</h3>
+
+<div>
+    <p>@Album.Name</p>  
+    <div class="row">
+        @foreach (var item in Album.Tracks)
+        {
+            <div class="card col-md-3 m-2 p-4 border-primary" style="width: 18rem;">
+                <h5 class="card-title">@item.Title</h5>
+                <hr />
+                <img class="card-img-top" src="@item.Id" alt="Card image cap">           
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public Album Album { get; set; }
+    
+}
