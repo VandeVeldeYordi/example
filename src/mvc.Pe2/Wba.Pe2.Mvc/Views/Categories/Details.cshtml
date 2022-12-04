@@ -1,0 +1,6 @@
+﻿@model CategoryDetailsViewModel
+<h2>Category details</h2>
+<label asp-for="Name"></label> : <br /><b>@Model.Name</b><br />
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit</a>
+<a asp-action="DeleteConfirmation" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a> 

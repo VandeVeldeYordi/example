@@ -1,0 +1,40 @@
+﻿@model GamesInfoViewModel
+
+<h2>Game details</h2>
+<div class="float-right">
+       <img asp-append-version="true" src="/images/@Model.ImagePath" alt="game" height="150px" />
+       
+
+</div>
+<label asp-for="Title"></label>: <b>@Model.Title</b> <br />
+<label asp-for="ReleaseDate"></label> : <b>@Model.ReleaseDate</b><br />
+<label asp-for="Price"></label> : <b>€@Model.Price</b> <br />
+<label asp-for="Category"></label> : <b>@Model.Category.Item</b><br />
+<label asp-for="Developers"></label> : <b>@Model.Developers.Item</b><br />
+<h3>characters</h3>
+<ul>
+    @foreach(var characters in Model.Characters)
+    {
+        <li>@characters.Item</li>
+    }
+</ul>
+<h3>properties</h3>
+<ul>
+    @foreach(var prop in Model.Properties)
+    {
+        <li>@prop.Item</li>
+    }
+</ul>
+
+<h3>Platforms</h3>
+<ul>
+    @foreach(var plat in Model.Platforms)
+    {
+        <li>@plat.Item</li>
+    }
+</ul>
+
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class ="btn btn-info">Edit</a>
+<a asp-action="DeleteConfirmation" asp-route-id="@Model.Id" class = "btn btn-danger">Delete</a>
+      <a asp-action="order" class="btn btn-primary">order</a>@* to do*@

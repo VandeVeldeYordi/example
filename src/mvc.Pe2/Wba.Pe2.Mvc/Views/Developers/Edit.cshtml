@@ -1,0 +1,14 @@
+﻿@model DevelopersDetailsViewModel
+
+<h2>@ViewBag.Action Developer</h2>
+
+<form asp-controller="Developers" asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class = "form-control" asp-for="Name" value="@Model.Name"/><br />
+        <span class="text-danger" asp-validation-for=Name></span>
+    </div>
+
+    <button type ="submit" class = "btn btn-primary">Save</button>
+    <a asp-action="index" class="btn btn-warning">Cancel</a>
+</form>
